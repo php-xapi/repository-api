@@ -1,6 +1,7 @@
-xAPI Storage API
-================
+Common API for Experience API Repository Implementations
+========================================================
 
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/php-xapi/xapi-storage-api/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/php-xapi/xapi-storage-api/?branch=master)
+[![Build Status](https://travis-ci.org/php-xapi/repository-api.svg?branch=master)](https://travis-ci.org/php-xapi/repository-api)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/php-xapi/repository-api/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/php-xapi/repository-api/?branch=master)
 
-Definition of an Experience API storage interface.
+This package defines a common interface for various xAPI repository backends.

@@ -19,4 +19,5 @@ matrix:
 install:
   - composer install
 
-script: phpunit --version
+script:
+  - find -name '*.php' -not -path './vendor/*' -name '*.php' | xargs -n1 php -l
