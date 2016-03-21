@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Xabbuh\XApi\Storage\Api\Mapping;
+namespace XApi\Repository\Api\Mapping;
 
 use Xabbuh\XApi\Model\Actor;
 use Xabbuh\XApi\Model\Result;

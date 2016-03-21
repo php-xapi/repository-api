@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Xabbuh\XApi\Storage\Api\Exception;
+namespace XApi\Repository\Api\Exception;
 
 /**
  * Exception to indicate that a {@link Xabbuh\XApi\Model\Statement} could not

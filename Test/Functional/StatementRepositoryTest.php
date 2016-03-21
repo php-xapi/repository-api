@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Xabbuh\XApi\Storage\Api\Test\Functional;
+namespace XApi\Repository\Api\Test\Functional;
 
 use Xabbuh\XApi\DataFixtures\StatementFixtures;
 use Xabbuh\XApi\Model\Statement;
-use Xabbuh\XApi\Storage\Api\StatementRepository;
+use XApi\Repository\Api\StatementRepository;
 
 /**
  * @author Christian Flothmann <christian.flothmann@xabbuh.de>
@@ -39,7 +39,7 @@ abstract class StatementRepositoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Xabbuh\XApi\Storage\Api\Exception\NotFoundException
+     * @expectedException \XApi\Repository\Api\Exception\NotFoundException
      */
     public function testFetchingNonExistingStatementThrowsException()
     {
@@ -47,7 +47,7 @@ abstract class StatementRepositoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Xabbuh\XApi\Storage\Api\Exception\NotFoundException
+     * @expectedException \XApi\Repository\Api\Exception\NotFoundException
      * @dataProvider getStatementsWithoutId
      */
     public function testFetchingStatementAsVoidedStatementThrowsException(Statement $statement)
@@ -112,7 +112,7 @@ abstract class StatementRepositoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Xabbuh\XApi\Storage\Api\Exception\NotFoundException
+     * @expectedException \XApi\Repository\Api\Exception\NotFoundException
      */
     public function testFetchingNonExistingVoidStatementThrowsException()
     {
@@ -120,7 +120,7 @@ abstract class StatementRepositoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Xabbuh\XApi\Storage\Api\Exception\NotFoundException
+     * @expectedException \XApi\Repository\Api\Exception\NotFoundException
      */
     public function testFetchingVoidStatementAsStatementThrowsException()
     {

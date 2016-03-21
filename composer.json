@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Xabbuh\\XApi\\Storage\\Api\\": ""
+            "XApi\\Repository\\Api\\": ""
         }
     },
     "extra": {
