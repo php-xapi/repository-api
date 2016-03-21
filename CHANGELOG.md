@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+0.2.0
+-----
+
+* changed base namespace of all classes from `Xabbuh\XApi\Storage\Api` to
+  `XApi\Repository\Api`
+
 0.1.2
 -----
 

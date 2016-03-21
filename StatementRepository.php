@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Xabbuh\XApi\Storage\Api;
+namespace XApi\Repository\Api;
 
 use Rhumsaa\Uuid\Uuid;
 use Xabbuh\XApi\Model\Actor;
 use Xabbuh\XApi\Model\Statement;
 use Xabbuh\XApi\Model\StatementsFilter;
-use Xabbuh\XApi\Storage\Api\Exception\NotFoundException;
-use Xabbuh\XApi\Storage\Api\Mapping\MappedStatement;
+use XApi\Repository\Api\Exception\NotFoundException;
+use XApi\Repository\Api\Mapping\MappedStatement;
 
 /**
  * {@link Statement} repository.
