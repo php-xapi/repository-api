@@ -12,8 +12,8 @@
     ],
     "require": {
         "ramsey/uuid": "~2.8",
-        "php-xapi/model": "~0.1",
-        "php-xapi/test-fixtures": "~0.1"
+        "php-xapi/model": "^0.1.0",
+        "php-xapi/test-fixtures": "^0.1.0"
     },
     "conflict": {
         "xabbuh/xapi-storage-api": "*"
