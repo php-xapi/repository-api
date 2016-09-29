@@ -2,11 +2,11 @@
 
 namespace XApi\Repository\Api;
 
+use Xabbuh\XApi\Common\Exception\NotFoundException;
 use Xabbuh\XApi\Model\Actor;
 use Xabbuh\XApi\Model\Statement;
 use Xabbuh\XApi\Model\StatementId;
 use Xabbuh\XApi\Model\StatementsFilter;
-use XApi\Repository\Api\Exception\NotFoundException;
 
 /**
  * Public API of an Experience API (xAPI) {@link Statement} repository.

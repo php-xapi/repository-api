@@ -39,7 +39,7 @@ abstract class StatementRepositoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \XApi\Repository\Api\Exception\NotFoundException
+     * @expectedException \Xabbuh\XApi\Common\Exception\NotFoundException
      */
     public function testFetchingNonExistingStatementThrowsException()
     {
@@ -47,7 +47,7 @@ abstract class StatementRepositoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \XApi\Repository\Api\Exception\NotFoundException
+     * @expectedException \Xabbuh\XApi\Common\Exception\NotFoundException
      * @dataProvider getStatementsWithoutId
      */
     public function testFetchingStatementAsVoidedStatementThrowsException(Statement $statement)
@@ -112,7 +112,7 @@ abstract class StatementRepositoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \XApi\Repository\Api\Exception\NotFoundException
+     * @expectedException \Xabbuh\XApi\Common\Exception\NotFoundException
      */
     public function testFetchingNonExistingVoidStatementThrowsException()
     {
@@ -120,7 +120,7 @@ abstract class StatementRepositoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \XApi\Repository\Api\Exception\NotFoundException
+     * @expectedException \Xabbuh\XApi\Common\Exception\NotFoundException
      */
     public function testFetchingVoidStatementAsStatementThrowsException()
     {

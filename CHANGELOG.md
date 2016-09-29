@@ -4,6 +4,9 @@ CHANGELOG
 0.3.0
 -----
 
+* Removed the `NotFoundException` in favor of the exception with the same
+  name from the `php-xapi/exception` package.
+
 * The public API now uses `StatementId` instances instead of strings to carry
   information about statement ids. This means changes to the following methods:
 
