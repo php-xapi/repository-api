@@ -14,6 +14,7 @@ namespace XApi\Repository\Api;
 use Rhumsaa\Uuid\Uuid;
 use Xabbuh\XApi\Model\Actor;
 use Xabbuh\XApi\Model\Statement;
+use Xabbuh\XApi\Model\StatementId;
 use Xabbuh\XApi\Model\StatementsFilter;
 use XApi\Repository\Api\Exception\NotFoundException;
 use XApi\Repository\Api\Mapping\MappedStatement;
@@ -28,9 +29,9 @@ abstract class StatementRepository implements StatementRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    final public function findStatementById($statementId, Actor $authority = null)
+    final public function findStatementById(StatementId $statementId, Actor $authority = null)
     {
-        $criteria = array('id' => $statementId);
+        $criteria = array('id' => $statementId->getValue());
 
         if (null !== $authority) {
             $criteria['authority'] = $authority;
@@ -54,9 +55,9 @@ abstract class StatementRepository implements StatementRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    final public function findVoidedStatementById($voidedStatementId, Actor $authority = null)
+    final public function findVoidedStatementById(StatementId $voidedStatementId, Actor $authority = null)
     {
-        $criteria = array('id' => $voidedStatementId);
+        $criteria = array('id' => $voidedStatementId->getValue());
 
         if (null !== $authority) {
             $criteria['authority'] = $authority;
@@ -103,7 +104,7 @@ abstract class StatementRepository implements StatementRepositoryInterface
      */
     final public function storeStatement(Statement $statement, $flush = true)
     {
-        $uuid = $statement->getId();
+        $uuid = $statement->getId()->getValue();
         $mappedStatement = MappedStatement::createFromModel($statement);
         $mappedStatement->stored = new \DateTime();
 
@@ -114,7 +115,7 @@ abstract class StatementRepository implements StatementRepositoryInterface
 
         $this->storeMappedStatement($mappedStatement, $flush);
 
-        return $uuid;
+        return StatementId::fromString($uuid);
     }
 
     /**

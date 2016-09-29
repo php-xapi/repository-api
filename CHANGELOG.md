@@ -4,6 +4,18 @@ CHANGELOG
 0.3.0
 -----
 
+* The public API now uses `StatementId` instances instead of strings to carry
+  information about statement ids. This means changes to the following methods:
+
+  * `StatementRepositoryInterface::findStatementById()`: The `$statementId`
+    argument is now type hinted with `StatementId`.
+
+  * `StatementRepositoryInterface::findVoidedStatementById()`: The `$voidedStatementId`
+    argument is now type hinted with `StatementId`.
+
+  * `StatementRepositoryInterface::storeStatement()`: The method returns a
+    `StatementId` instance instead of a string.
+
 * Added a `StatementRepositoryInterface` that defines the public API of a
   statement repository. You can still extend the base `StatementRepository`
   class or provide your own implementation of this new interface.
