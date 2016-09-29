@@ -40,13 +40,13 @@ abstract class StatementRepository implements StatementRepositoryInterface
         $mappedStatement = $this->findMappedStatement($criteria);
 
         if (null === $mappedStatement) {
-            throw new NotFoundException();
+            throw new NotFoundException('No statements could be found matching the given criteria.');
         }
 
         $statement = $mappedStatement->getModel();
 
         if ($statement->isVoidStatement()) {
-            throw new NotFoundException();
+            throw new NotFoundException('The stored statement is a voiding statement.');
         }
 
         return $statement;
@@ -66,13 +66,13 @@ abstract class StatementRepository implements StatementRepositoryInterface
         $mappedStatement = $this->findMappedStatement($criteria);
 
         if (null === $mappedStatement) {
-            throw new NotFoundException();
+            throw new NotFoundException('No voided statements could be found matching the given criteria.');
         }
 
         $statement = $mappedStatement->getModel();
 
         if (!$statement->isVoidStatement()) {
-            throw new NotFoundException();
+            throw new NotFoundException('The stored statement is no voiding statement.');
         }
 
         return $statement;
