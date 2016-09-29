@@ -13,6 +13,7 @@ namespace XApi\Repository\Api\Test\Functional;
 
 use Xabbuh\XApi\DataFixtures\StatementFixtures;
 use Xabbuh\XApi\Model\Statement;
+use Xabbuh\XApi\Model\StatementId;
 use XApi\Repository\Api\StatementRepository;
 
 /**
@@ -43,7 +44,7 @@ abstract class StatementRepositoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testFetchingNonExistingStatementThrowsException()
     {
-        $this->statementRepository->findStatementById('12345678-1234-5678-8234-567812345678');
+        $this->statementRepository->findStatementById(StatementId::fromString('12345678-1234-5678-8234-567812345678'));
     }
 
     /**
@@ -116,7 +117,7 @@ abstract class StatementRepositoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testFetchingNonExistingVoidStatementThrowsException()
     {
-        $this->statementRepository->findVoidedStatementById('12345678-1234-5678-8234-567812345678');
+        $this->statementRepository->findVoidedStatementById(StatementId::fromString('12345678-1234-5678-8234-567812345678'));
     }
 
     /**
