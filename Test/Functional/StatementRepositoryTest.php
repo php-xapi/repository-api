@@ -67,7 +67,7 @@ abstract class StatementRepositoryTest extends \PHPUnit_Framework_TestCase
         $statementId = $this->statementRepository->storeStatement($statement);
 
         $this->assertNull($statement->getId());
-        $this->assertRegExp(self::UUID_REGEXP, $statementId);
+        $this->assertRegExp(self::UUID_REGEXP, $statementId->getValue());
     }
 
     /**
@@ -139,7 +139,7 @@ abstract class StatementRepositoryTest extends \PHPUnit_Framework_TestCase
         $statementId = $this->statementRepository->storeStatement($statement);
 
         $this->assertNull($statement->getId());
-        $this->assertRegExp(self::UUID_REGEXP, $statementId);
+        $this->assertRegExp(self::UUID_REGEXP, $statementId->getValue());
     }
 
     public function testUuidIsNotGeneratedForNewVoidStatementIfPresent()
@@ -189,7 +189,7 @@ abstract class StatementRepositoryTest extends \PHPUnit_Framework_TestCase
     private function assertStatementEquals(Statement $expected, Statement $actual, $validateId = true)
     {
         if ($validateId) {
-            $this->assertSame($expected->getId(), $actual->getId());
+            $this->assertTrue($expected->getId()->equals($actual->getId()));
         }
 
         $this->assertTrue($actual->getActor()->equals($expected->getActor()));

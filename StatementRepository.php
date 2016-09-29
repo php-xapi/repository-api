@@ -104,18 +104,16 @@ abstract class StatementRepository implements StatementRepositoryInterface
      */
     final public function storeStatement(Statement $statement, $flush = true)
     {
-        $uuid = $statement->getId()->getValue();
+        if (null === $statement->getId()) {
+            $statement = $statement->withId(StatementId::fromUuid(Uuid::uuid4()));
+        }
+
         $mappedStatement = MappedStatement::createFromModel($statement);
         $mappedStatement->stored = new \DateTime();
 
-        if (null === $uuid) {
-            $uuid = Uuid::uuid4()->toString();
-            $mappedStatement->id = $uuid;
-        }
-
         $this->storeMappedStatement($mappedStatement, $flush);
 
-        return StatementId::fromString($uuid);
+        return $statement->getId();
     }
 
     /**

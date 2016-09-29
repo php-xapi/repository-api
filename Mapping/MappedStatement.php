@@ -14,6 +14,7 @@ namespace XApi\Repository\Api\Mapping;
 use Xabbuh\XApi\Model\Actor;
 use Xabbuh\XApi\Model\Result;
 use Xabbuh\XApi\Model\Statement;
+use Xabbuh\XApi\Model\StatementId;
 
 /**
  * A {@link Statement} mapped to a storage backend.
@@ -64,13 +65,13 @@ class MappedStatement
 
     public function getModel()
     {
-        return new Statement($this->id, $this->actor, $this->verb->getModel(), $this->object, $this->result, $this->authority, $this->created, $this->stored);
+        return new Statement(StatementId::fromString($this->id), $this->actor, $this->verb->getModel(), $this->object, $this->result, $this->authority, $this->created, $this->stored);
     }
 
     public static function createFromModel(Statement $statement)
     {
         $mappedStatement = new MappedStatement();
-        $mappedStatement->id = $statement->getId();
+        $mappedStatement->id = $statement->getId()->getValue();
         $mappedStatement->actor = $statement->getActor();
         $mappedStatement->verb = MappedVerb::createFromModel($statement->getVerb());
         $mappedStatement->object = $statement->getObject();
