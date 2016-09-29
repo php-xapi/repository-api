@@ -1,0 +1,68 @@
+<?php
+
+namespace XApi\Repository\Api;
+
+use Xabbuh\XApi\Model\Actor;
+use Xabbuh\XApi\Model\Statement;
+use Xabbuh\XApi\Model\StatementsFilter;
+use XApi\Repository\Api\Exception\NotFoundException;
+
+/**
+ * Public API of an Experience API (xAPI) {@link Statement} repository.
+ *
+ * @author Christian Flothmann <christian.flothmann@xabbuh.de>
+ */
+interface StatementRepositoryInterface
+{
+    /**
+     * Finds a {@link Statement} by id.
+     *
+     * @param string     $statementId The statement id to filter by
+     * @param Actor|null $authority   (Optional) actor that must be the authority
+     *                                of the returned statement
+     *
+     * @return Statement The statement
+     *
+     * @throws NotFoundException if no Statement with the given UUID does exist
+     */
+    public function findStatementById($statementId, Actor $authority = null);
+
+    /**
+     * Finds a voided {@link Statement} by id.
+     *
+     * @param string     $voidedStatementId The voided statement id to filter
+     *                                      by
+     * @param Actor|null $authority         (Optional) actor that must be the
+     *                                      authority of the returned statement
+     *
+     * @return Statement The statement
+     *
+     * @throws NotFoundException if no voided Statement with the given UUID
+     *                           does exist
+     */
+    public function findVoidedStatementById($voidedStatementId, Actor $authority = null);
+
+    /**
+     * Finds a collection of {@link Statement Statements} filtered by the given
+     * criteria.
+     *
+     * @param StatementsFilter $criteria  The criteria to filter by
+     * @param Actor|null       $authority (Optional) actor that must be the
+     *                                    authority of the returned statements
+     *
+     * @return Statement[] The statements
+     */
+    public function findStatementsBy(StatementsFilter $criteria, Actor $authority = null);
+
+    /**
+     * Writes a {@link Statement} to the underlying data storage.
+     *
+     * @param Statement $statement The statement to store
+     * @param bool      $flush     Whether or not to flush the managed objects
+     *                             immediately (i.e. write them to the data
+     *                             storage)
+     *
+     * @return string The UUID of the created Statement
+     */
+    public function storeStatement(Statement $statement, $flush = true);
+}

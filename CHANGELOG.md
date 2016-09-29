@@ -4,6 +4,10 @@ CHANGELOG
 0.3.0
 -----
 
+* Added a `StatementRepositoryInterface` that defines the public API of a
+  statement repository. You can still extend the base `StatementRepository`
+  class or provide your own implementation of this new interface.
+
 * The requirements for `php-xapi/model` and `php-xapi/test-fixtures` have
   been bumped to `^1.0` to make use of their stable releases.
 
