@@ -63,6 +63,7 @@ abstract class StatementRepositoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testUuidIsGeneratedForNewStatementIfNotPresent(Statement $statement)
     {
+        $statement = $statement->withId(null);
         $statementId = $this->statementRepository->storeStatement($statement);
 
         $this->assertNull($statement->getId());
@@ -95,6 +96,7 @@ abstract class StatementRepositoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreatedStatementCanBeRetrievedByGeneratedId(Statement $statement)
     {
+        $statement  =$statement->withId(null);
         $statementId = $this->statementRepository->storeStatement($statement);
         $fetchedStatement = $this->statementRepository->findStatementById($statementId);
 
@@ -125,7 +127,7 @@ abstract class StatementRepositoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testFetchingVoidStatementAsStatementThrowsException()
     {
-        $statement = StatementFixtures::getVoidingStatement();
+        $statement = StatementFixtures::getVoidingStatement()->withId(null);
         $statementId = $this->statementRepository->storeStatement($statement);
 
         $this->statementRepository->findStatementById($statementId);
@@ -133,7 +135,7 @@ abstract class StatementRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function testUuidIsGeneratedForNewVoidStatementIfNotPresent()
     {
-        $statement = StatementFixtures::getVoidingStatement();
+        $statement = StatementFixtures::getVoidingStatement()->withId(null);
         $statementId = $this->statementRepository->storeStatement($statement);
 
         $this->assertNull($statement->getId());
@@ -159,7 +161,7 @@ abstract class StatementRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function testCreatedVoidStatementCanBeRetrievedByGeneratedId()
     {
-        $statement = StatementFixtures::getVoidingStatement();
+        $statement = StatementFixtures::getVoidingStatement()->withId(null);
         $statementId = $this->statementRepository->storeStatement($statement);
         $fetchedStatement = $this->statementRepository->findVoidedStatementById($statementId);
 
