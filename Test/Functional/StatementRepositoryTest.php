@@ -49,10 +49,10 @@ abstract class StatementRepositoryTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \Xabbuh\XApi\Common\Exception\NotFoundException
-     * @dataProvider getStatementsWithoutId
      */
-    public function testFetchingStatementAsVoidedStatementThrowsException(Statement $statement)
+    public function testFetchingStatementAsVoidedStatementThrowsException()
     {
+        $statement = StatementFixtures::getTypicalStatement()->withId(null);
         $statementId = $this->statementRepository->storeStatement($statement);
 
         $this->statementRepository->findVoidedStatementById($statementId);
@@ -86,9 +86,14 @@ abstract class StatementRepositoryTest extends \PHPUnit_Framework_TestCase
     public function testCreatedStatementCanBeRetrievedByOriginalId(Statement $statement)
     {
         $this->statementRepository->storeStatement($statement);
-        $fetchedStatement = $this->statementRepository->findStatementById($statement->getId());
 
-        $this->assertStatementEquals($statement, $fetchedStatement);
+        if ($statement->getVerb()->isVoidVerb()) {
+            $fetchedStatement = $this->statementRepository->findVoidedStatementById($statement->getId());
+        } else {
+            $fetchedStatement = $this->statementRepository->findStatementById($statement->getId());
+        }
+
+        $this->assertTrue($statement->equals($fetchedStatement));
     }
 
     /**
@@ -98,20 +103,45 @@ abstract class StatementRepositoryTest extends \PHPUnit_Framework_TestCase
     {
         $statement  =$statement->withId(null);
         $statementId = $this->statementRepository->storeStatement($statement);
-        $fetchedStatement = $this->statementRepository->findStatementById($statementId);
+
+        if ($statement->getVerb()->isVoidVerb()) {
+            $fetchedStatement = $this->statementRepository->findVoidedStatementById($statementId);
+        } else {
+            $fetchedStatement = $this->statementRepository->findStatementById($statementId);
+        }
 
         $this->assertNull($statement->getId());
-        $this->assertStatementEquals($statement, $fetchedStatement, false);
+        $this->assertTrue($statement->equals($fetchedStatement->withId(null)));
     }
 
     public function getStatementsWithId()
     {
-        return $this->getStatements(StatementFixtures::DEFAULT_STATEMENT_ID);
+        $fixtures = array();
+
+        foreach (get_class_methods('Xabbuh\XApi\DataFixtures\StatementFixtures') as $method) {
+            $statement = call_user_func(array('Xabbuh\XApi\DataFixtures\StatementFixtures', $method));
+
+            if ($statement instanceof Statement) {
+                $fixtures[$method] = array($statement->withId(StatementId::fromString(StatementFixtures::DEFAULT_STATEMENT_ID)));
+            }
+        }
+
+        return $fixtures;
     }
 
     public function getStatementsWithoutId()
     {
-        return $this->getStatements(null);
+        $fixtures = array();
+
+        foreach (get_class_methods('Xabbuh\XApi\DataFixtures\StatementFixtures') as $method) {
+            $statement = call_user_func(array('Xabbuh\XApi\DataFixtures\StatementFixtures', $method));
+
+            if ($statement instanceof Statement) {
+                $fixtures[$method] = array($statement->withId(null));
+            }
+        }
+
+        return $fixtures;
     }
 
     /**
@@ -156,7 +186,7 @@ abstract class StatementRepositoryTest extends \PHPUnit_Framework_TestCase
         $this->statementRepository->storeStatement($statement);
         $fetchedStatement = $this->statementRepository->findVoidedStatementById($statement->getId());
 
-        $this->assertStatementEquals($statement, $fetchedStatement);
+        $this->assertTrue($statement->equals($fetchedStatement));
     }
 
     public function testCreatedVoidStatementCanBeRetrievedByGeneratedId()
@@ -166,46 +196,10 @@ abstract class StatementRepositoryTest extends \PHPUnit_Framework_TestCase
         $fetchedStatement = $this->statementRepository->findVoidedStatementById($statementId);
 
         $this->assertNull($statement->getId());
-        $this->assertStatementEquals($statement, $fetchedStatement, false);
+        $this->assertTrue($statement->equals($fetchedStatement->withId(null)));
     }
 
     abstract protected function createStatementRepository();
 
     abstract protected function cleanDatabase();
-
-    private function getStatements($id)
-    {
-        return array(
-            'minimal-statement' => array(StatementFixtures::getMinimalStatement($id)),
-            'statement-with-group-actor' => array(StatementFixtures::getStatementWithGroupActor($id)),
-            'statement-with-group-actor-without-members' => array(StatementFixtures::getStatementWithGroupActorWithoutMembers($id)),
-            'object-is-statement-reference' => array(StatementFixtures::getStatementWithStatementRef($id)),
-            'statement-with-result' => array(StatementFixtures::getStatementWithResult($id)),
-            'statement-with-agent-authority' => array(StatementFixtures::getStatementWithAgentAuthority($id)),
-            'statement-with-group-authority' => array(StatementFixtures::getStatementWithGroupAuthority($id)),
-        );
-    }
-
-    private function assertStatementEquals(Statement $expected, Statement $actual, $validateId = true)
-    {
-        if ($validateId) {
-            $this->assertTrue($expected->getId()->equals($actual->getId()));
-        }
-
-        $this->assertTrue($actual->getActor()->equals($expected->getActor()));
-        $this->assertTrue($actual->getVerb()->equals($expected->getVerb()));
-        $this->assertTrue($actual->getObject()->equals($expected->getObject()));
-
-        if (null === $expected->getResult()) {
-            $this->assertNull($actual->getResult());
-        } else {
-            $this->assertTrue($actual->getResult()->equals($expected->getResult()));
-        }
-
-        if (null === $expected->getAuthority()) {
-            $this->assertNull($actual->getAuthority());
-        } else {
-            $this->assertTrue($actual->getAuthority()->equals($expected->getAuthority()));
-        }
-    }
 }
