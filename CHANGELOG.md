@@ -4,6 +4,12 @@ CHANGELOG
 0.3.0
 -----
 
+* Removed the `MappedStatement` and `MappedVerb` classes. They are needed
+  for Doctrine based implementations and thus have been moved to the
+  `php-xapi/repository-doctrine` package. Consequently, the `StatementRepository`
+  class has been removed too. You now have to implement the `StatementRepositoryInterface`
+  and handle `Statement` classes directly instead.
+
 * Removed the `NotFoundException` in favor of the exception with the same
   name from the `php-xapi/exception` package.
 
