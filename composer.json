@@ -12,9 +12,10 @@
     ],
     "require": {
         "ramsey/uuid": "~2.8",
-        "php-xapi/model": "^1.0",
+        "php-xapi/model": "^1.1 || ^2.0",
         "php-xapi/test-fixtures": "^1.0"
     },
+    "minimum-stability": "dev",
     "conflict": {
         "xabbuh/xapi-storage-api": "*"
     },
@@ -25,7 +26,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.3.x-dev"
+            "dev-master": "0.4.x-dev"
         }
     }
 }
