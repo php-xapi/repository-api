@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+0.3.1
+-----
+
+* allow `3.x` releases of `ramsey/uuid`
+
 0.3.0
 -----
 
