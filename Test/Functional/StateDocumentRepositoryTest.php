@@ -49,7 +49,7 @@ abstract class StateDocumentRepositoryTest extends \PHPUnit_Framework_TestCase
             ->byActivity(ActivityFixtures::getIdActivity())
             ->byAgent(ActorFixtures::getTypicalAgent());
 
-        $this->stateDocumentRepository->findStateDocumentBy('unknown-state-id', $criteria);
+        $this->stateDocumentRepository->find('unknown-state-id', $criteria);
     }
 
     /**
@@ -57,14 +57,14 @@ abstract class StateDocumentRepositoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreatedStateDocumentCanBeRetrievedByOriginal(StateDocument $stateDocument)
     {
-        $this->stateDocumentRepository->storeStateDocument($stateDocument);
+        $this->stateDocumentRepository->save($stateDocument);
 
         $criteria = new StateDocumentsFilter();
         $criteria
             ->byActivity($stateDocument->getState()->getActivity())
             ->byAgent($stateDocument->getState()->getActor());
 
-        $fetchedStateDocument = $this->stateDocumentRepository->findStateDocumentBy($stateDocument->getState()->getStateId(), $criteria);
+        $fetchedStateDocument = $this->stateDocumentRepository->find($stateDocument->getState()->getStateId(), $criteria);
 
         $this->assertTrue($stateDocument->equals($fetchedStateDocument));
     }
@@ -75,15 +75,15 @@ abstract class StateDocumentRepositoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testDeletedStatementIsDeleted(StateDocument $stateDocument)
     {
-        $this->stateDocumentRepository->storeStateDocument($stateDocument);
-        $this->stateDocumentRepository->deleteStateDocument($stateDocument);
+        $this->stateDocumentRepository->save($stateDocument);
+        $this->stateDocumentRepository->delete($stateDocument);
 
         $criteria = new StateDocumentsFilter();
         $criteria
             ->byActivity($stateDocument->getState()->getActivity())
             ->byAgent($stateDocument->getState()->getActor());
 
-        $this->stateDocumentRepository->findStateDocumentBy($stateDocument->getState()->getStateId(), $criteria);
+        $this->stateDocumentRepository->find($stateDocument->getState()->getStateId(), $criteria);
     }
 
     public function getStateDocument()

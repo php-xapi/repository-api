@@ -23,7 +23,7 @@ interface StateDocumentRepositoryInterface
      *
      * @return StateDocument The state document
      */
-    public function findStateDocumentBy($stateId, StateDocumentsFilter $criteria);
+    public function find($stateId, StateDocumentsFilter $criteria);
 
     /**
      * Finds a collection of {@link StateDocument State documents} filtered by the given
@@ -33,25 +33,38 @@ interface StateDocumentRepositoryInterface
      *
      * @return StateDocument[] The state documents
      */
-    public function findStateDocumentsBy(StateDocumentsFilter $criteria);
+    public function findBy(StateDocumentsFilter $criteria);
 
     /**
      * Writes a {@link StateDocument} to the underlying data storage.
      *
      * @param StateDocument $stateDocument The state document to store
-     * @param bool          $flush         Whether or not to flush the managed objects
-     *                                     immediately (i.e. write them to the data
-     *                                     storage)
      */
-    public function storeStateDocument(StateDocument $stateDocument, $flush = true);
+    public function save(StateDocument $stateDocument);
+
+    /**
+     * Sets a {@link StateDocument} to be persisted later.
+     *
+     * @param StateDocument $stateDocument The state document to store
+     */
+    public function saveDeferred(StateDocument $stateDocument);
 
     /**
      * Delete a {@link StateDocument} from the underlying data storage.
      *
      * @param StateDocument $stateDocument The state document to delete
-     * @param bool          $flush         Whether or not to flush the managed objects
-     *                                     immediately (i.e. delete them from the data
-     *                                     storage)
      */
-    public function deleteStateDocument(StateDocument $stateDocument, $flush = true);
+    public function delete(StateDocument $stateDocument);
+
+    /**
+     * Sets a {@link StateDocument} to be deleted later.
+     *
+     * @param StateDocument $stateDocument The state document to delete
+     */
+    public function deleteDeferred(StateDocument $stateDocument);
+
+    /**
+     * Persists any deferred {@link StateDocument}.
+     */
+    public function commit();
 }
