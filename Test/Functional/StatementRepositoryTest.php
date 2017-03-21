@@ -11,6 +11,7 @@
 
 namespace XApi\Repository\Api\Test\Functional;
 
+use PHPUnit\Framework\TestCase;
 use Xabbuh\XApi\DataFixtures\StatementFixtures;
 use Xabbuh\XApi\Model\Statement;
 use Xabbuh\XApi\Model\StatementId;
@@ -19,7 +20,7 @@ use XApi\Repository\Api\StatementRepository;
 /**
  * @author Christian Flothmann <christian.flothmann@xabbuh.de>
  */
-abstract class StatementRepositoryTest extends \PHPUnit_Framework_TestCase
+abstract class StatementRepositoryTest extends TestCase
 {
     const UUID_REGEXP = '/^[a-f0-9]{8}-[a-f0-9]{4}-[1-5][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i';
 
