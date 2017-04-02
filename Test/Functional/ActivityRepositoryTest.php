@@ -11,6 +11,7 @@
 
 namespace XApi\Repository\Api\Test\Functional;
 
+use PHPUnit\Framework\TestCase;
 use Xabbuh\XApi\Model\Activity;
 use Xabbuh\XApi\Model\IRI;
 use XApi\Repository\Api\ActivityRepositoryInterface;
@@ -18,7 +19,7 @@ use XApi\Repository\Api\ActivityRepositoryInterface;
 /**
  * @author Jérôme Parmentier <jerome.parmentier@acensi.fr>
  */
-abstract class ActivityRepositoryTest extends \PHPUnit_Framework_TestCase
+abstract class ActivityRepositoryTest extends TestCase
 {
     /**
      * @var ActivityRepositoryInterface
