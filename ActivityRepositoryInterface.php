@@ -14,7 +14,7 @@ use Xabbuh\XApi\Model\IRI;
 interface ActivityRepositoryInterface
 {
     /**
-     * Finds a {@link Activity} by id.
+     * Finds an {@link Activity} by id.
      *
      * @param IRI $activityId The activity id to filter by
      *
