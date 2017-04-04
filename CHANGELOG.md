@@ -8,6 +8,8 @@ CHANGELOG
 * allow `2.x` releases of the `php-xapi/model` package too
 * added an `ActivityRepositoryInterface` that defines the public API of
   an activity repository
+* added a `PersonRepositoryInterface` that defines the public API of
+  a person repository
 
 0.3.0
 -----

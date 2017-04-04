@@ -10,9 +10,15 @@
             "homepage": "https://github.com/xabbuh"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/Lctrs/model"
+        }
+    ],
     "require": {
         "ramsey/uuid": "^2.8 || ^3.0",
-        "php-xapi/model": "^1.1 || ^2.0",
+        "php-xapi/model": "dev-feature/person as 1.2.0",
         "php-xapi/test-fixtures": "^1.0"
     },
     "minimum-stability": "dev",
