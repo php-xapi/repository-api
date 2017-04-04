@@ -5,6 +5,8 @@ namespace XApi\Repository\Api;
 use Xabbuh\XApi\Common\Exception\NotFoundException;
 use Xabbuh\XApi\Model\StateDocument;
 use Xabbuh\XApi\Model\StateDocumentsFilter;
+use XApi\Repository\Api\Exception\DeleteException;
+use XApi\Repository\Api\Exception\SaveException;
 
 /**
  * Public API of an Experience API (xAPI) {@link StateDocument} repository.
@@ -39,6 +41,8 @@ interface StateDocumentRepositoryInterface
      * Writes a {@link StateDocument} to the underlying data storage.
      *
      * @param StateDocument $stateDocument The state document to store
+     *
+     * @throws SaveException When the saving failed
      */
     public function save(StateDocument $stateDocument);
 
@@ -53,6 +57,8 @@ interface StateDocumentRepositoryInterface
      * Delete a {@link StateDocument} from the underlying data storage.
      *
      * @param StateDocument $stateDocument The state document to delete
+     *
+     * @throws DeleteException When the deletion failed
      */
     public function delete(StateDocument $stateDocument);
 
@@ -65,6 +71,9 @@ interface StateDocumentRepositoryInterface
 
     /**
      * Persists any deferred {@link StateDocument}.
+     *
+     * @throws DeleteException When the deletion of one of the deferred StateDocument failed
+     * @throws SaveException   When the saving of one of the deferred StateDocument failed
      */
     public function commit();
 }

@@ -8,6 +8,10 @@ CHANGELOG
 * allow `2.x` releases of the `php-xapi/model` package too
 * added an `ActivityRepositoryInterface` that defines the public API of
   an activity repository
+* added a `StateDocumentRepositoryInterface` that defines the public API of
+  a state document repository
+* added abstract base `WriteException` class: concrete classes exist for savings and
+  deletion operations
 
 0.3.0
 -----

@@ -11,6 +11,7 @@
 
 namespace XApi\Repository\Api\Test\Functional;
 
+use PHPUnit\Framework\TestCase;
 use Xabbuh\XApi\DataFixtures\ActivityFixtures;
 use Xabbuh\XApi\DataFixtures\ActorFixtures;
 use Xabbuh\XApi\DataFixtures\DocumentFixtures;
@@ -21,7 +22,7 @@ use XApi\Repository\Api\StateDocumentRepositoryInterface;
 /**
  * @author Jérôme Parmentier <jerome.parmentier@acensi.fr>
  */
-abstract class StateDocumentRepositoryTest extends \PHPUnit_Framework_TestCase
+abstract class StateDocumentRepositoryTest extends TestCase
 {
     /**
      * @var StateDocumentRepositoryInterface
@@ -66,17 +67,61 @@ abstract class StateDocumentRepositoryTest extends \PHPUnit_Framework_TestCase
 
         $fetchedStateDocument = $this->stateDocumentRepository->find($stateDocument->getState()->getStateId(), $criteria);
 
-        $this->assertTrue($stateDocument->equals($fetchedStateDocument));
+        $this->assertEquals($stateDocument->getState()->getStateId(), $fetchedStateDocument->getState()->getStateId());
+        $this->assertEquals($stateDocument->getState()->getRegistrationId(), $fetchedStateDocument->getState()->getRegistrationId());
+        $this->assertTrue($stateDocument->getState()->getActivity()->equals($fetchedStateDocument->getState()->getActivity()));
+        $this->assertTrue($stateDocument->getState()->getActor()->equals($fetchedStateDocument->getState()->getActor()));
+        $this->assertEquals($stateDocument->getData(), $fetchedStateDocument->getData());
     }
 
     /**
      * @dataProvider getStateDocument
      * @expectedException \Xabbuh\XApi\Common\Exception\NotFoundException
      */
-    public function testDeletedStatementIsDeleted(StateDocument $stateDocument)
+    public function testDeletedStateDocumentIsDeleted(StateDocument $stateDocument)
     {
         $this->stateDocumentRepository->save($stateDocument);
         $this->stateDocumentRepository->delete($stateDocument);
+
+        $criteria = new StateDocumentsFilter();
+        $criteria
+            ->byActivity($stateDocument->getState()->getActivity())
+            ->byAgent($stateDocument->getState()->getActor());
+
+        $this->stateDocumentRepository->find($stateDocument->getState()->getStateId(), $criteria);
+    }
+
+    /**
+     * @dataProvider getStateDocument
+     */
+    public function testCommitSaveDeferredStateDocument(StateDocument $stateDocument)
+    {
+        $this->stateDocumentRepository->saveDeferred($stateDocument);
+        $this->stateDocumentRepository->commit();
+
+        $criteria = new StateDocumentsFilter();
+        $criteria
+            ->byActivity($stateDocument->getState()->getActivity())
+            ->byAgent($stateDocument->getState()->getActor());
+
+        $fetchedStateDocument = $this->stateDocumentRepository->find($stateDocument->getState()->getStateId(), $criteria);
+
+        $this->assertEquals($stateDocument->getState()->getStateId(), $fetchedStateDocument->getState()->getStateId());
+        $this->assertEquals($stateDocument->getState()->getRegistrationId(), $fetchedStateDocument->getState()->getRegistrationId());
+        $this->assertTrue($stateDocument->getState()->getActivity()->equals($fetchedStateDocument->getState()->getActivity()));
+        $this->assertTrue($stateDocument->getState()->getActor()->equals($fetchedStateDocument->getState()->getActor()));
+        $this->assertEquals($stateDocument->getData(), $fetchedStateDocument->getData());
+    }
+
+    /**
+     * @dataProvider getStateDocument
+     * @expectedException \Xabbuh\XApi\Common\Exception\NotFoundException
+     */
+    public function testCommitDeleteDeferredStateDocument(StateDocument $stateDocument)
+    {
+        $this->stateDocumentRepository->save($stateDocument);
+        $this->stateDocumentRepository->deleteDeferred($stateDocument);
+        $this->stateDocumentRepository->commit();
 
         $criteria = new StateDocumentsFilter();
         $criteria
