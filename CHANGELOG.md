@@ -8,7 +8,7 @@ CHANGELOG
 
 * made the package compatible with `3.x` releases of `ramsey/uuid`
 
-* allow `2.x` releases of the `php-xapi/model` package too
+* allow `2.x` and `3.x` releases of the `php-xapi/model` package too
 
 * added an `ActivityRepositoryInterface` that defines the public API of
   an activity repository
