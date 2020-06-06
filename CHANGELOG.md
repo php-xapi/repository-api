@@ -5,6 +5,7 @@ CHANGELOG
 -----
 
 * allow `3.x` releases of `ramsey/uuid`
+* fix compatibility with PHPUnit 6+
 
 0.3.0
 -----
