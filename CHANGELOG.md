@@ -13,6 +13,11 @@ CHANGELOG
 * added an `ActivityRepositoryInterface` that defines the public API of
   an activity repository
 
+0.3.1
+-----
+
+* allow `3.x` releases of `ramsey/uuid`
+
 0.3.0
 -----
 
